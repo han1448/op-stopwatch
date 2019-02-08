@@ -100,3 +100,20 @@ Task2		1000.24
 Task3		2505.12
 Total : 5008.44, Average : 1669.48, Min : 1000.24, Max : 2505.12
 ```
+
+### Custom summarize view
+Implement Summary interface.
+```java
+public class MySummary implements Summary {
+    @Override
+    public String summaryString(OpStopWatch stopWatch, TimeUnit timeUnit) {
+        System.out.println("my custom summary");
+    }
+}
+```
+
+Pass the instance to constructor when you create opstopwatch instance.
+```java
+OpStopWatch opStopWatch = new OpStopWatch("MyStopWatch", new MySummary());
+
+```
