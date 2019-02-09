@@ -45,17 +45,23 @@ opStopWatch.stop();
 ```
 
 ### Summarize
-#### get
-Show total amount time
+#### getTasks
+get list of task
 ```java
-System.out.println(opStopWatch.get(TimeUnit.MILLISECONDS));
+List<Optask> tasks = opStopWatch.getTasks();
+```
+
+#### totalTime
+Return total amount time
+```java
+System.out.println(opStopWatch.totalTime(TimeUnit.MILLISECONDS));
 -->
 1000
 
 ```
 
 #### list
-Show execution time of each task 
+Return execution time of each task 
 ```java
 System.out.println(opStopWatch.list(TimeUnit.MILLISECONDS));
 -->
@@ -64,7 +70,7 @@ System.out.println(opStopWatch.list(TimeUnit.MILLISECONDS));
 ```
 
 #### average
-Show average execution time of all tasks
+Return average execution time of all tasks
 ```java
 System.out.println(opStopWatch.average(TimeUnit.MILLISECONDS));
 -->
@@ -72,20 +78,31 @@ System.out.println(opStopWatch.average(TimeUnit.MILLISECONDS));
 ```
 
 #### min
-Show min value of all tasks
+Return min value of all tasks
 ```java
 System.out.println(opStopWatch.min(TimeUnit.MILLISECONDS));
 -->
 12.43
 ```
 
+#### getMaxTask
+Return optask with the oldest time
+```java
+OpTask maxOpTask = opStopWatch.getMaxTask();
+```
 
 #### max
-Show max value of all tasks
+Return max value of all tasks
 ```java
 System.out.println(opStopWatch.max(TimeUnit.MILLISECONDS));
 -->
 2442.12
+```
+
+#### getMinTask
+Return optask with the shortest test time
+```java
+OpTask minOpTask = opStopWatch.getMinTask();
 ```
 
 #### report
