@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -29,17 +30,45 @@ public class OpStopWatchTest {
         Thread.sleep(2500);
         opStopWatch.stop();
 
-        System.out.println(opStopWatch.get(TimeUnit.NANOSECONDS));
-        System.out.println(opStopWatch.get(TimeUnit.MILLISECONDS));
-        System.out.println(opStopWatch.get(TimeUnit.SECONDS));
-        System.out.println(opStopWatch.get(TimeUnit.MINUTES));
-        System.out.println(opStopWatch.get(TimeUnit.HOURS));
+        System.out.println(opStopWatch.totalTime(TimeUnit.NANOSECONDS));
+        System.out.println(opStopWatch.totalTime(TimeUnit.MILLISECONDS));
+        System.out.println(opStopWatch.totalTime(TimeUnit.SECONDS));
+        System.out.println(opStopWatch.totalTime(TimeUnit.MINUTES));
+        System.out.println(opStopWatch.totalTime(TimeUnit.HOURS));
         System.out.println(opStopWatch.list(TimeUnit.MILLISECONDS));
         System.out.println(opStopWatch.average(TimeUnit.MILLISECONDS));
         System.out.println(opStopWatch.max(TimeUnit.MILLISECONDS));
         System.out.println(opStopWatch.min(TimeUnit.MILLISECONDS));
         System.out.println(opStopWatch.report(TimeUnit.MILLISECONDS));
         System.out.println(opStopWatch.report(TimeUnit.SECONDS));
+    }
+
+    @Test
+    public void getMaxTask() throws InterruptedException {
+        OpStopWatch opStopWatch = OpStopWatch.createAndRun("Max", "task1");
+        Thread.sleep(10);
+        opStopWatch.stop();
+
+        opStopWatch.start("task2");
+        Thread.sleep(100);
+        opStopWatch.stop();
+
+        OpTask maxTask = opStopWatch.getMaxTask();
+        assertEquals("task2", maxTask.getName());
+    }
+
+    @Test
+    public void getMinTask() throws InterruptedException {
+        OpStopWatch opStopWatch = OpStopWatch.createAndRun("Max", "task1");
+        Thread.sleep(10);
+        opStopWatch.stop();
+
+        opStopWatch.start("task2");
+        Thread.sleep(100);
+        opStopWatch.stop();
+
+        OpTask minTask = opStopWatch.getMinTask();
+        assertEquals("task1", minTask.getName());
     }
 
     @Test

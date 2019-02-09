@@ -24,7 +24,7 @@ public class DefaultSummary implements Summary {
                 .append(BAR)
                 .append("\n");
 
-        stopWatch.getOpTaskList().stream()
+        stopWatch.getTasks().stream()
                 .forEach(task -> {
                     buffer.append(Optional.ofNullable(task.getName()).orElse(""))
                             .append("\t\t")
@@ -33,7 +33,7 @@ public class DefaultSummary implements Summary {
                 });
 
         buffer.append("Total : ")
-                .append(stopWatch.get(timeUnit))
+                .append(stopWatch.totalTime(timeUnit))
                 .append(", ")
                 .append("Average : ")
                 .append(stopWatch.average(timeUnit))

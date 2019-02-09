@@ -1,19 +1,19 @@
 package com.oppalove.util;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.stream.Collectors.toList;
 
 public class OpStopWatch {
 
+    private final Comparator<OpTask> comparator = Comparator.comparing(OpTask::getElapsedTime);
     private String name;
     private List<OpTask> opTaskList = new LinkedList<OpTask>();
     private OpTask currentTask;
     private long startNanoTime;
     private Summary summary;
+
 
     public OpStopWatch() {
         summary = new DefaultSummary();
@@ -63,7 +63,11 @@ public class OpStopWatch {
         reset();
     }
 
-    public double get(TimeUnit timeUnit) {
+    public List<OpTask> getTasks() {
+        return opTaskList;
+    }
+
+    public double totalTime(TimeUnit timeUnit) {
         return opTaskList.stream()
                 .map(task -> convertTimeUnit(task.getElapsedTime(), TimeUnit.NANOSECONDS, timeUnit))
                 .mapToDouble(Double::doubleValue)
@@ -87,12 +91,20 @@ public class OpStopWatch {
                 .orElse(0);
     }
 
+    public OpTask getMaxTask() {
+        return Collections.max(opTaskList, comparator);
+    }
+
     public double min(TimeUnit timeUnit) {
         return opTaskList.stream()
                 .map(task -> convertTimeUnit(task.getElapsedTime(), TimeUnit.NANOSECONDS, timeUnit))
                 .mapToDouble(Double::doubleValue)
                 .min()
                 .orElse(0);
+    }
+
+    public OpTask getMinTask() {
+        return Collections.min(opTaskList, comparator);
     }
 
     public List<Double> list(TimeUnit timeUnit) {
@@ -109,10 +121,6 @@ public class OpStopWatch {
 
     public String getName() {
         return name;
-    }
-
-    public List<OpTask> getOpTaskList() {
-        return opTaskList;
     }
 
     private void reset() {
