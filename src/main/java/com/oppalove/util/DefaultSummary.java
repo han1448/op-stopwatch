@@ -28,6 +28,8 @@ public class DefaultSummary implements Summary {
                 .forEach(task -> {
                     buffer.append(Optional.ofNullable(task.getName()).orElse(""))
                             .append("\t\t")
+                            .append(Math.round((task.getElapsedTime() * 100) / stopWatch.totalTime(TimeUnit.NANOSECONDS))).append("%")
+                            .append("\t\t")
                             .append(convertTimeUnit(task.getElapsedTime(), TimeUnit.NANOSECONDS, timeUnit))
                             .append("\n");
                 });
@@ -47,4 +49,5 @@ public class DefaultSummary implements Summary {
 
         return buffer.toString();
     }
+
 }

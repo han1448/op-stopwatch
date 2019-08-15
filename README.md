@@ -112,9 +112,9 @@ System.out.println(opStopWatch.report(TimeUnit.MILLISECONDS));
 -->
 MyStopWatch (MILLISECONDS)
 ===========================
-Task1		1503.08
-Task2		1000.24
-Task3		2505.12
+Task1	30%	1503.08
+Task2	20%	1000.24
+Task3	50%	2505.12
 Total : 5008.44, Average : 1669.48, Min : 1000.24, Max : 2505.12
 ```
 

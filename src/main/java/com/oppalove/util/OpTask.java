@@ -1,5 +1,8 @@
 package com.oppalove.util;
 
+/**
+ * Class for each task information.
+ */
 public class OpTask {
     private final String name;
     private long nanoTime;
